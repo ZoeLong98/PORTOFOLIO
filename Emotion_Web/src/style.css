@@ -5,9 +5,14 @@
 
 html,
 body {
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
   font-family: "Inria Sans", sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: auto;
 }
 
 h1 {
@@ -31,12 +36,6 @@ h1 {
   clip-path: inset(100% 0 0 0);
 }
 
-.intro__container {
-  position: relative;
-  background: black;
-  height: 150vh; /* 必须给滚动空间 */
-}
-
 .webgl {
   position: fixed;
   top: 0;
@@ -45,6 +44,7 @@ h1 {
   width: 100%;
   height: 100vh;
   background-color: transparent;
+  pointer-events: none;
 }
 
 .hero__container {
@@ -94,25 +94,40 @@ h1 {
   transform-origin: top center;
 }
 
+.intro__container {
+  position: relative;
+  background: black;
+  height: 150vh;
+  touch-action: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .intro__text {
   max-width: clamp(280px, 70vw, 600px);
   color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   opacity: 1;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: clamp(12px, 2vw, 18px);
   font-weight: 400;
   line-height: 1.8;
   letter-spacing: 0.02em;
   text-align: justify;
-  text-justify: inter-word;
+  /* text-justify: inter-word; */
   word-wrap: break-word;
   white-space: normal;
   z-index: 15;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .intro__text {
+    max-width: 65vw;
+  }
 }
 
 /* TextReveal 组件样式 */
@@ -193,6 +208,8 @@ h1 {
   padding: 1rem 3rem;
   font-size: clamp(18px, 4vw, 32px);
   width: 4vw;
+  pointer-events: auto;
+  touch-action: none;
 }
 
 .wordlist2 {

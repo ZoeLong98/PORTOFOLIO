@@ -10,16 +10,19 @@ gsap.registerPlugin(SplitText);
 
 // Scroll animation
 const scrollAnimation = () => {
+  // Detect mobile device
+  const isMobile =
+    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+    window.innerWidth < 768;
+
   const emotion = document.querySelector(".emotion__title--black");
   const emotionWhite = document.querySelector(".emotion__title--white");
-  const canvas = document.querySelector("canvas.webgl");
   const eyes = document.querySelectorAll(".eye"); // Select all eyes
   const black = document.querySelector(".intro__container");
   const hero = document.querySelector(".hero__container");
   const wordlist = document.querySelector(".wordlist");
   const wordlist2 = document.querySelector(".wordlist2");
   const word = document.querySelector(".word");
-  const transparent = document.querySelector(".transparent");
   const emotionCloud = document.querySelector(".emotion-cloud");
 
   emotionCloud.style.opacity = 0;
@@ -42,9 +45,11 @@ const scrollAnimation = () => {
       trigger: black,
       start: "top bottom",
       end: `top center-=${emotionOffset}`,
-      scrub: 2,
+      scrub: isMobile ? 1 : 2,
       pin: hero,
       pinSpacing: false,
+      preventOverlaps: true,
+      fastScrollEnd: true,
     },
   });
 
@@ -139,11 +144,11 @@ const scrollAnimation = () => {
         { y: 0 },
         {
           y: () => {
-            const baseDistance = 20;
-            const randomOffset = Math.random() * 10 - 5;
+            const baseDistance = isMobile ? 10 : 20;
+            const randomOffset = Math.random() * 5 - 2.5;
             return baseDistance + randomOffset + "vh";
           },
-          duration: 3,
+          duration: isMobile ? 2 : 3,
           ease: "elastic.out(1, 0.4)",
           stagger: 0.1,
           onUpdate: () => {
@@ -203,6 +208,19 @@ const scrollAnimation = () => {
   /**
    * Transition Animate compress page into sphere
    * */
+  ScrollTrigger.create({
+    trigger: ".transition--black",
+    start: "top top",
+    onEnter: () => {
+      // Hide network visualizer before transition starts
+      networkVisualizer.hide(0.3);
+    },
+    onLeaveBack: () => {
+      // Show network visualizer when scrolling back up into intro section
+      networkVisualizer.show(0.3);
+    },
+  });
+
   gsap.fromTo(
     ".transition--black",
     { clipPath: "circle(100% at 50% 50%)" },
@@ -215,6 +233,7 @@ const scrollAnimation = () => {
         scrub: true,
         pin: true,
         pinSpacing: false,
+        preventOverlaps: true,
       },
     },
   );
@@ -293,13 +312,11 @@ const scrollAnimation = () => {
 
   ScrollTrigger.create({
     trigger: ".transition--black",
-    start: "bottom+=50% bottom",
-    end: "bottom top",
+    start: "top top",
     onEnter: () => {
       gsap.to(".wordlist", {
         opacity: 1,
         duration: 0.8,
-        pin: true,
         ease: "power2.out",
       });
       startWordSwitching();
@@ -309,7 +326,6 @@ const scrollAnimation = () => {
       gsap.to(".wordlist", {
         opacity: 0,
         duration: 0.8,
-        pin: true,
         ease: "power2.in",
       });
     },
