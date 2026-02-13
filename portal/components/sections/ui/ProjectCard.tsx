@@ -21,7 +21,7 @@ export function ProjectCard({
   return (
     <CardWrapper
       {...cardProps}
-      className="group block overflow-hidden rounded-2xl bg-[#fdfdfd] transition-shadow hover:shadow-lg"
+      className="relative group block overflow-hidden rounded-2xl bg-[#fdfdfd] transition-shadow hover:shadow-lg"
     >
       {/* Image Area */}
       <div className="relative aspect-2/1 w-full overflow-hidden">
@@ -34,7 +34,7 @@ export function ProjectCard({
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-4 py-3">
+      <div className="absolute bottom-0 w-full flex items-center justify-between px-4 py-1 bg-white/80">
         {/* Title */}
         <h4 className="heading-card text-black">{title}</h4>
 
