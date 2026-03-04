@@ -22,9 +22,11 @@ export function WorkSection({
         </SectionHeading_Clickable>
       </div>
       {isExpanded && <CloseButton onClick={onExpand} />}
-      {data.map((group) => (
+      {[...data].sort((a, b) =>
+        a.category.toLowerCase() === "figma" ? 1 : b.category.toLowerCase() === "figma" ? -1 : 0
+      ).map((group) => (
         <div key={group.category} className="mb-12 mt-8">
-          <p className="mt-8 text-lg underline">{group.category}</p>
+          <p className="my-8 text-lg underline">{group.category}</p>
           <div
             className={`mt-2 ${isExpanded ? "grid sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}`}
           >

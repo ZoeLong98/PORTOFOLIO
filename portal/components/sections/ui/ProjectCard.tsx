@@ -24,7 +24,7 @@ export function ProjectCard({
       className="relative group block overflow-hidden rounded-2xl bg-[#fdfdfd] transition-shadow hover:shadow-lg"
     >
       {/* Image Area */}
-      <div className="relative aspect-4/3 overflow-hidden">
+      <div className="relative aspect-16/9 overflow-hidden">
         <Image
           src={image}
           alt={title}
@@ -39,13 +39,15 @@ export function ProjectCard({
         <h4 className="heading-card text-black">{title}</h4>
 
         {/* Tech Stack */}
-        <div className="flex items-center gap-3">
-          {techStack.map((tech) => (
-            <span key={tech} className="text-meta">
-              {tech}
-            </span>
-          ))}
-        </div>
+        {techStack?.length > 0 && (
+          <div className="flex items-center gap-3">
+            {techStack.map((tech) => (
+              <span key={tech} className="text-meta">
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </CardWrapper>
   );
