@@ -23,10 +23,10 @@ export function WorkSection({
       </div>
       {isExpanded && <CloseButton onClick={onExpand} />}
       {data.map((group) => (
-        <div key={group.category} className="mb-4">
-          <p className="mt-2 text-meta">{group.category}</p>
+        <div key={group.category} className="mb-12 mt-8">
+          <p className="mt-8 text-lg underline">{group.category}</p>
           <div
-            className={`mt-4 ${isExpanded ? "grid grid-cols-2 gap-6" : "space-y-4"}`}
+            className={`mt-2 ${isExpanded ? "grid sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}`}
           >
             {group.projects.map((project) => (
               <ProjectCard

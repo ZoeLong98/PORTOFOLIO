@@ -24,7 +24,7 @@ export function ProjectCard({
       className="relative group block overflow-hidden rounded-2xl bg-[#fdfdfd] transition-shadow hover:shadow-lg"
     >
       {/* Image Area */}
-      <div className="relative aspect-2/1 w-full overflow-hidden">
+      <div className="relative aspect-4/3 overflow-hidden">
         <Image
           src={image}
           alt={title}
